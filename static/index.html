@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>爬蟲任務</title>
+</head>
+<style>
+  body {
+    margin: 0;
+  }
+  #btn {
+    cursor: pointer;
+    padding: 8px;
+    border: 2px solid lightgray;
+    border-radius: 5px;
+    background-color: rgb(250, 213, 168);
+  }
+  #btn:hover {
+    background-color: bisque;
+  }
+  .form-container {
+    margin-top: 120px;
+    margin-left: 20px;
+  }
+  .form {
+    margin: 10px 20px;
+  }
+  #input {
+    height: 24px;
+    padding: 5px;
+    width: 200px;
+    border: 1px solid gray;
+    border-radius: 10px;
+  }
+  input:focus {
+    background-color: whitesmoke;
+  }
+  h2 {
+    margin-left: 10px;
+  }
+  #header {
+    width: 100%;
+    background-color: rgb(188, 214, 236);
+    position: fixed;
+    top: 0px;
+  }
+  h1 {
+    margin: 0;
+    padding: 15px;
+  }
+  #footer {
+    width: 100%;
+    background-color: rgb(188, 214, 236);
+    position: fixed;
+    bottom: 0px;
+    height: 70px;
+  }
+  #footer div {
+    margin: 20px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
+  }
+</style>
+<body>
+  <div id="header">
+    <h1>洋蔥比價網，大家來比一比</h1>
+  </div>
+  <div class="form-container">
+    <form class="form" action="/info" method="post">
+      <label for="input"><h2>請輸入貨號: </h2></label>
+      <input id="input" name="input" type="text" autofocus />&nbsp;&nbsp;&nbsp;&nbsp;
+      <input id="btn" type="submit" value="點擊提交" onclick="return checkInput()" />
+    </form>
+  </div>
+  <div id="footer">
+    <b><div>
+        Price-comparison website, Onion.Inc</br>
+        &copy;2022-<span id="year"></span>&nbsp;
+        <script>
+          const year = new Date().getFullYear();
+          year === 2022 ? "" : document.getElementById('year').innerHTML = year;
+        </script>
+        All Rights Reserved.
+    </div></b>
+  </div>
+
+  <script>
+    const btn = document.getElementById('btn');
+    const input = document.getElementById('input');
+    function checkInput() {
+      if (input.value.trim() === "" || input.value.trim() === " ") {
+        alert("請勿輸入空格或空白值！");
+        return false;
+      } else {
+        return true;
+      }
+    }
+  </script>
+</body>
+</html>
