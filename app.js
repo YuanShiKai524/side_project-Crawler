@@ -36,19 +36,27 @@ app.post("/info", (req, res) => {
       const data = promise.data;
       const $ = cheerio.load(data);
       const priceArr = [];
+      const linkArr = [];
 
-      // 迭代取值
+      // 迭代取值(價格)
       for(let i = 0; i < 5; i++) {
         const p = $("li.price-info > span").eq(i).attr("aria-label");
         priceArr.push(p.slice(2));
       }
+      // 迭代取值(商品連結)
+      for(let j = 0; j < 5; j++) {
+        const link = $("li.action > a.items_link").eq(j).attr("href");
+        linkArr.push(link);
+      }
+      
       // 解構賦值
       const [price3, price4, price5, price6, price7] = priceArr;
-      const dataStr = `<tr><td style="padding: 7px; border: 1px solid gray;">${id}</td><td style="padding: 7px; border: 1px solid gray;">${price3}元</td><td style="padding: 7px; border: 1px solid gray;">${price4}元</td><td style="padding: 7px; border: 1px solid gray;">${price5}元</td><td style="padding: 7px; border: 1px solid gray;">${price6}元</td><td style="padding: 7px; border: 1px solid gray;">${price7}元</td></tr>`;
+      const [link3, link4, link5, link6, link7] = linkArr;
+      const dataStr = `<tr><td style="padding: 7px; border: 1px solid gray;">${id}</td><td style="padding: 7px; border: 1px solid gray;"><a href='${link3}'>${price3}元</a></td><td style="padding: 7px; border: 1px solid gray;"><a href='${link4}'>${price4}元</a></td><td style="padding: 7px; border: 1px solid gray;"><a href='${link5}'>${price5}元</a></td><td style="padding: 7px; border: 1px solid gray;"><a href='${link6}'>${price6}元</a></td><td style="padding: 7px; border: 1px solid gray;"><a href='${link7}'>${price7}元</a></td></tr>`;
       tableData = tableData + dataStr;
       dataArr.push(tableData);
       if (dataArr.length === idArr.length) {
-        res.send(dataArr[dataArr.length - 1] + `</table></br><button style="cursor: pointer; position: relative; top: 20px; left: 400px; padding: 10px; background-color: lightblue; border: 0.5px solid gray; border-radius: 4px; margin-bottom: 50px;" onclick="location.href='/'">回上一頁</button>`);
+        res.send(dataArr[dataArr.length - 1] + `</table></br><button style="cursor: pointer; position: relative; top: 20px; left: 400px; padding: 10px; background-color: lightblue; border: 0.5px solid gray; border-radius: 4px; margin-bottom: 50px;" onclick="location.href='/'">回上一頁</button><style>a {color: pink;} a:hover {color: #059862;}</style>`);
       }
     });
   }
